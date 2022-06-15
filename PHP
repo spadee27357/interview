@@ -1,0 +1,180 @@
+<!--createData() -->
+<?php
+    header('Content-Type: application/json; charset=utf-8');
+    include "sql.php"
+
+    if (empty($_POST["account"])) {
+        $json = array(
+          "ok" => false,
+          "message" => "Input account"
+        );
+    
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+
+    $account = $_POST["account"];
+    $password = $_POST["password"];
+
+    $sql = "INSERT INTO ˋtableˋ(ˋaccountˋ, ˋpasswordˋ) VALUES("+ $account +", "+ $password +")";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $username, $content);
+    $result = $stmt->execute();
+
+    if (!$result) {
+        $json = array(
+            "ok" => false,
+            "message" => $conn->error
+        );
+
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+ 
+    $json = array(
+        "ok" => true,
+        "message" => "Success"
+    );
+
+    $response = json_encode($json);
+    echo $response
+
+?>
+
+
+<!-- getData() -->
+<?php
+    header('Content-Type: application/json; charset=utf-8');
+    include "sql.php"
+
+    if (empty($_Get["type"])) {
+        $json = array(
+          "ok" => false,
+          "message" => "Something wrong"
+        );
+    
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+
+    $sql = "SELECT * FROM ˋtableˋ";
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute();
+
+    if (!$result) {
+      $json = array(
+        "ok" => false,
+        "message" => $conn->error
+      );
+      $response = json_encode($json);
+      echo $response;
+      die();
+    }
+
+    $result = $stmt->get_result();
+    $discussions = array();
+    while($row = $result->fetch_assoc()) {
+      array_push($discussions, array(
+        "account" => $row["account"],
+        "password" => $row["password"],
+      ));
+    }
+  
+    $json = array(
+      "ok" => true,
+      "discussions" => $discussions
+    );
+
+    $response = json_encode($json);
+    echo $response;
+?>
+
+
+<!-- upgradeData() -->
+<?php
+    header('Content-Type: application/json; charset=utf-8');
+    include "sql.php"
+
+    if (empty($_POST["account"])) {
+        $json = array(
+          "ok" => false,
+          "message" => "Input account"
+        );
+    
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+
+    $account = $_POST["account"];
+    $password = $_POST["password"];
+
+    $sql = "UPDATE ˋtableˋ SET ˋaccountˋ = ('"+ $account +"'), ˋpasswordˋ = ('"+ $password +"') WHERE ˋaccountˋ = ('"+ $account +"')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $username, $content);
+    $result = $stmt->execute();
+
+    if (!$result) {
+        $json = array(
+            "ok" => false,
+            "message" => $conn->error
+        );
+
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+ 
+    $json = array(
+        "ok" => true,
+        "message" => "Success"
+    );
+
+    $response = json_encode($json);
+    echo $response
+?>
+
+
+<!-- delData() -->
+<?php
+    header('Content-Type: application/json; charset=utf-8');
+    include "sql.php"
+
+    if (empty($_POST["account"])) {
+        $json = array(
+          "ok" => false,
+          "message" => "Input account"
+        );
+    
+        $response = json_encode($json);
+        echo $response;
+        die(); 
+    }
+
+    $account = $_POST["account"];
+
+    $sql = "DELETE FROM ˋtableˋ WHERE ˋaccountˋ = ('" + $account + "')";
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute();
+
+    if (!$result) {
+      $json = array(
+        "ok" => false,
+        "message" => $conn->error
+      );
+      $response = json_encode($json);
+      echo $response;
+      die();
+    }
+  
+    $json = array(
+      "ok" => true,
+      "message" => "Success"
+    );
+
+    $response = json_encode($json);
+    echo $response;
+?>
