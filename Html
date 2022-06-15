@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang = en>
+    <head>
+        <meta charset="UTF-8">
+        <script src="../static/js/jquery.main.js"></script>
+    </head>
+    <body>
+        <div class="role placeholders" style="width:100%;">
+            <div >
+                <p>account:</p>
+                <input id="account" type="text">
+            </div>
+            <div >
+                <p>password:</p>
+                <input id="password" type="text">
+            </div>
+
+            <button id="create_btn">新增</button>
+            <button id="upgrade_btn">編輯</button>
+            <button id="delete_btn">刪除</button>
+        </div>
+        <div>
+            <textarea id="datatext" style="width: 400px;height: 300px;"></textarea>
+            <button id="get_btn">取得</button>
+        </div>
+        
+        <script type="text/javascript">
+            
+            function createData(account, password) {
+                xhr = new XMLHttpRequest();
+            
+                xhr.open("POST", "user/data?type=Y&account="+ account + "&password=" + password, true);
+                xhr.send();
+                xhr.onload = function() {
+                    let response = JSON.parse(this.response);
+                    console.log(response);
+                };
+            }
+
+            function getData() {
+                xhr = new XMLHttpRequest();
+            
+                xhr.open("GET", "user/data?type=Y" , true);
+                xhr.send();
+                xhr.onload = function() {
+                    let response = JSON.parse(this.response);
+                    console.log(response);
+                    newData = JSON.stringify(response, 0, 1);
+                    document.getElementById("datatext").textContent = newData;
+                };
+            }
+
+            function upgradeData(account, password) {
+                xhr = new XMLHttpRequest();
+            
+                xhr.open("POST", "user/data?type=Y&account="+ account + "&password=" + password, true);
+                xhr.send();
+                xhr.onload = function() {
+                    let response = JSON.parse(this.response);
+                    console.log(response);
+                };
+            }
+
+            function delData(account) {
+                xhr = new XMLHttpRequest();
+                
+                xhr.open("POST", "user/data?type=Y&account="+ account, true);
+                xhr.send();
+                xhr.onload = function() {
+                    let response = JSON.parse(this.response);
+                    console.log(response);
+                };
+            }
+
+            $("#get_btn").click(function (){
+                createData(document.getElementById("account").value, document.getElementById("password").value);
+            })
+
+            $("#upgrade_btn").click(function (){
+                getData();
+            })
+
+            $("#upgrade_btn").click(function (){
+                upgradeData(document.getElementById("account").value, document.getElementById("password").value);
+            })
+
+            $("#del_btn").click(function (){
+                delData(document.getElementById("account").value);
+            })
+
+
+        </script>
+    </body>
+</html>
