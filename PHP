@@ -17,7 +17,7 @@
     $account = $_POST["account"];
     $password = $_POST["password"];
 
-    $sql = "INSERT INTO ˋtableˋ(ˋaccountˋ, ˋpasswordˋ) VALUES("+ $account +", "+ $password +")";
+    $sql = "INSERT INTO table(account, password) VALUES(?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ss', $username, $content);
     $result = $stmt->execute();
