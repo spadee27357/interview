@@ -112,7 +112,7 @@
     $account = $_POST["account"];
     $password = $_POST["password"];
 
-    $sql = "UPDATE table SET account = '"+ $account +"', password = '"+ $password +"' WHERE account = '"+ $account +"'";
+    $sql = "UPDATE table SET account = '". $account ."', password = '". $password ."' WHERE account = '". $account ."'";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ss', $username, $content);
     $result = $stmt->execute();
@@ -156,7 +156,7 @@
 
     $account = $_POST["account"];
 
-    $sql = "DELETE FROM table WHERE account = '" + $account + "'";
+    $sql = "DELETE FROM table WHERE account = '". $account ."'";
     $stmt = $conn->prepare($sql);
     $result = $stmt->execute();
 
