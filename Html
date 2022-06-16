@@ -17,7 +17,7 @@
 
             <button id="create_btn">新增</button>
             <button id="upgrade_btn">編輯</button>
-            <button id="delete_btn">刪除</button>
+            <button id="del_btn">刪除</button>
         </div>
         <div>
             <textarea id="datatext" style="width: 400px;height: 300px;"></textarea>
@@ -72,11 +72,11 @@
                 };
             }
 
-            $("#get_btn").click(function (){
+            $("#create_btn").click(function (){
                 createData(document.getElementById("account").value, document.getElementById("password").value);
             })
 
-            $("#upgrade_btn").click(function (){
+            $("#get_btn").click(function (){
                 getData();
             })
 
